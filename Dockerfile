@@ -108,6 +108,7 @@ EXPOSE 443
 # Use entrypoint script
 ADD conf/entrypoint.sh /entrypoint.sh
 RUN dos2unix /entrypoint.sh
+RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 #Start nginx
