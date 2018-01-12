@@ -35,6 +35,15 @@ server {
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
 		try_files $uri $uri/ =404;
+
+        add_header Last-Modified $date_gmt;
+        add_header Cache-Control 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0';
+    	if_modified_since off;
+        expires off;
+        etag off;
+
+        proxy_no_cache 1;
+        proxy_cache_bypass 1; 
 	}
 
 	# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
