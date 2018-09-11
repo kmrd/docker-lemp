@@ -26,7 +26,7 @@ ENV DEBIAN_FRONTEND noninteractive
 #-----------------------#
 # Installs              #
 #-----------------------#
-RUN apt-get update && \
+RUN apt-get -y update && \
     apt-get -y upgrade
 
 
@@ -39,8 +39,10 @@ RUN apt-get -y --fix-missing install \
       sudo \
       lsof \
       dos2unix \
-      unzip
-
+      unzip \
+      nodejs \
+      nodejs-legacy \
+      npm
 
 
 # Install supervisor (not strictly necessary)
@@ -75,6 +77,10 @@ RUN apt-get -y --fix-missing install \
       php-mysql
 
 
+# Install LESS package
+RUN npm install -g less
+
+
 #-----------------------#
 # Configurations        #
 #-----------------------#
@@ -89,7 +95,6 @@ RUN sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.0/fpm/php.
     sed -i -e "s/display_errors\s*=\s*Off/display_errors = On/g" /etc/php/7.0/fpm/php.ini
 
 # RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
-
 
 # Setting Permissions
 RUN chown -R www-data:www-data /var/www/html
