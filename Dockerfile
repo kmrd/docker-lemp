@@ -26,6 +26,7 @@ ENV DEBIAN_FRONTEND noninteractive
 #-----------------------#
 # Installs              #
 #-----------------------#
+
 RUN apt-get -y update && \
     apt-get -y upgrade
 
@@ -67,6 +68,7 @@ RUN apt-get -y --fix-missing install \
       php7.0-zip \
       php7.0-soap \
       php-pear \
+      php-sqlite3 \
       php7.0-curl
 
 
