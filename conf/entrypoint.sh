@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Start php service
-service php7.0-fpm start
+service php7.4-fpm start
 
 # Start nginx
 nginx

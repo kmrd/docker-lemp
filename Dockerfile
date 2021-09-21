@@ -15,7 +15,7 @@
 # docker run -it --rm --name lemp -p 80:80 --mount type=bind,source="%cd%",target=/var/www/html/ kmrd/lemp
 #
 #
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 MAINTAINER David Reyes <david@thoughtbubble.ca>
 
 # Environments vars
@@ -36,13 +36,11 @@ RUN apt-get -y --fix-missing install \
       apt-transport-https \
       git \
       nano \
-      lynx-cur \
       sudo \
       lsof \
       dos2unix \
       unzip \
       nodejs \
-      nodejs-legacy \
       npm
 
 
@@ -57,20 +55,7 @@ RUN apt-get install -y nginx-full
 
 # Install PHP
 RUN apt-get -y --fix-missing install \
-      php7.0 \
-      php7.0-cli \
-      php-fpm \
-      php7.0-gd \
-      php7.0-json \
-      php7.0-mbstring \
-      php7.0-xml \
-      php7.0-xsl \
-      php7.0-zip \
-      php7.0-soap \
-      php-pear \
-      php-sqlite3 \
-      php7.0-curl
-
+      php-fpm
 
 # Install MySQL
 RUN apt-get -y --fix-missing install \
@@ -91,10 +76,10 @@ ADD conf/default /etc/nginx/sites-available/default
 
 
 # Configure php.ini
-RUN sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.0/fpm/php.ini && \
-    sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php/7.0/fpm/php.ini && \
-    sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php/7.0/fpm/php.ini && \
-    sed -i -e "s/display_errors\s*=\s*Off/display_errors = On/g" /etc/php/7.0/fpm/php.ini
+# RUN sed -i -e "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/g" /etc/php/7.0/fpm/php.ini && \
+#    sed -i -e "s/upload_max_filesize\s*=\s*2M/upload_max_filesize = 100M/g" /etc/php/7.0/fpm/php.ini && \
+#    sed -i -e "s/post_max_size\s*=\s*8M/post_max_size = 100M/g" /etc/php/7.0/fpm/php.ini && \
+#    sed -i -e "s/display_errors\s*=\s*Off/display_errors = On/g" /etc/php/7.0/fpm/php.ini
 
 # RUN echo "\ndaemon off;" >> /etc/nginx/nginx.conf
 
